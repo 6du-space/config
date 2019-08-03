@@ -9,7 +9,7 @@
     function Config(env, homedir){
       this.li = bind$(this, 'li', prototype);
       this.line = bind$(this, 'line', prototype);
-      this.root = path.join(process.env[env] || path.join(os.homedir(), homedir), 'config');
+      this.root = process.env[env] || path.join(os.homedir(), homedir);
     }
     Config.prototype.line = async function(name, init){
       var fpath, li, i$, ref$, len$, i;
