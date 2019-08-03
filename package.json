@@ -1,0 +1,22 @@
+{
+  "name": "config-6du",
+  "version": "0.0.2",
+  "description": "Blog framework for next generation Internet",
+  "main": "index.js",
+  "repository": "git@github.com:6du-space/config.git",
+  "author": "6du",
+  "license": "MPL-2.0",
+  "scripts": {
+    "dev": "npx nodemon -e ls,js 6du.js",
+    "prepublish": "npx lsc --no-header -r livescript-transform-implicit-async/register -c index.ls"
+  },
+  "dependencies": {
+    "fs-extra": "^8.1.0"
+  },
+  "devDependencies": {
+    "livescript": "^1.6.0",
+    "livescript-system": "^1.0.1",
+    "livescript-transform-implicit-async": "^1.1.0",
+    "nodemon": "^1.19.1"
+  }
+}
