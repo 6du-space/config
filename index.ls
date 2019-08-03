@@ -1,13 +1,20 @@
 require! <[
   path
+  os
 ]>
 require! {
   \fs-extra : fs
 }
 
 class Config
-  (@root) ->
-
+  (env, homedir) ->
+    @root = path.join(
+      process.env[env] or path.join(
+        os.homedir!
+        homedir
+      )
+      \config
+    )
   line : (name, init)!~>
     fpath = path.join(@root, name)+'.line.txt'
     if not await fs.exists(fpath)
