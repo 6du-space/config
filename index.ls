@@ -8,12 +8,9 @@ require! {
 
 class Config
   (env, homedir) ->
-    @root = path.join(
-      process.env[env] or path.join(
-        os.homedir!
-        homedir
-      )
-      \config
+    @root = process.env[env] or path.join(
+      os.homedir!
+      homedir
     )
   line : (name, init)!~>
     fpath = path.join(@root, name)+'.line.txt'
