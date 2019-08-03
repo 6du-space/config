@@ -9,11 +9,11 @@
     function Config(env, homedir){
       this.li = bind$(this, 'li', prototype);
       this.line = bind$(this, 'line', prototype);
-      this.root = process.env[env] || path.join(os.homedir(), homedir);
+      this.dir = process.env[env] || path.join(os.homedir(), homedir);
     }
     Config.prototype.line = async function(name, init){
       var fpath, li, i$, ref$, len$, i;
-      fpath = path.join(this.root, name) + '.line.txt';
+      fpath = path.join(this.dir, name) + '.line.txt';
       if (!(await fs.exists(fpath))) {
         if (init) {
           (await fs.outputFile(fpath, init));
@@ -34,7 +34,7 @@
     };
     Config.prototype.li = async function(name, init){
       var fpath, li, r, i$, ref$, len$, i;
-      fpath = path.join(this.root, name) + '.li.txt';
+      fpath = path.join(this.dir, name) + '.li.txt';
       if (!(await fs.exists(fpath))) {
         if (init.length) {
           (await fs.outputFile(fpath, init.join('\n')));

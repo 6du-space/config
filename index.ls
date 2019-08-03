@@ -8,12 +8,12 @@ require! {
 
 class Config
   (env, homedir) ->
-    @root = process.env[env] or path.join(
+    @dir = process.env[env] or path.join(
       os.homedir!
       homedir
     )
   line : (name, init)!~>
-    fpath = path.join(@root, name)+'.line.txt'
+    fpath = path.join(@dir, name)+'.line.txt'
     if not await fs.exists(fpath)
       if init
         await fs.outputFile(fpath, init)
@@ -27,7 +27,7 @@ class Config
     return init
 
   li: (name, init)!~>
-    fpath = path.join(@root, name)+'.li.txt'
+    fpath = path.join(@dir, name)+'.li.txt'
     if not await fs.exists(fpath)
       if init.length
         await fs.outputFile(fpath, init.join('\n'))
