@@ -7,7 +7,7 @@
   "author": "6du",
   "license": "MPL-2.0",
   "scripts": {
-    "dev": "npx nodemon -e ls,js 6du.js",
+    "dev": "npx nodemon -r livescript-transform-implicit-async/register -e ls,js index.ls",
     "prepublish": "npx lsc --no-header -r livescript-transform-implicit-async/register -c index.ls"
   },
   "dependencies": {
