@@ -1,14 +1,15 @@
 (function(){
-  var path, fs, Config;
+  var path, os, fs, Config;
   path = require('path');
+  os = require('os');
   fs = require('fs-extra');
   Config = (function(){
     Config.displayName = 'Config';
     var prototype = Config.prototype, constructor = Config;
-    function Config(root){
-      this.root = root;
+    function Config(env, homedir){
       this.li = bind$(this, 'li', prototype);
       this.line = bind$(this, 'line', prototype);
+      this.root = path.join(process.env[env] || path.join(os.homedir(), homedir), 'config');
     }
     Config.prototype.line = async function(name, init){
       var fpath, li, i$, ref$, len$, i;
