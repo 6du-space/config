@@ -12,8 +12,11 @@ class Config
       os.homedir!
       homedir
     )
-  line : (name, init)!~>
+  line : (name, init, write=false)!~>
     fpath = path.join(@dir, name)+'.line.txt'
+    if write
+      await fs.outputFile(fpath, init)
+      return init
     if not await fs.exists(fpath)
       if init
         await fs.outputFile(fpath, init)
@@ -26,8 +29,11 @@ class Config
           return i
     return init
 
-  li: (name, init)!~>
+  li: (name, init, write=false)!~>
     fpath = path.join(@dir, name)+'.li.txt'
+    if write
+      await fs.outputFile(fpath, init.join('\n'))
+      return init
     if not await fs.exists(fpath)
       if init.length
         await fs.outputFile(fpath, init.join('\n'))
