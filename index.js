@@ -11,9 +11,14 @@
       this.line = bind$(this, 'line', prototype);
       this.dir = process.env[env] || path.join(os.homedir(), homedir);
     }
-    Config.prototype.line = async function(name, init){
+    Config.prototype.line = async function(name, init, write){
       var fpath, li, i$, ref$, len$, i;
+      write == null && (write = false);
       fpath = path.join(this.dir, name) + '.line.txt';
+      if (write) {
+        (await fs.outputFile(fpath, init));
+        return init;
+      }
       if (!(await fs.exists(fpath))) {
         if (init) {
           (await fs.outputFile(fpath, init));
@@ -32,9 +37,14 @@
       }
       return init;
     };
-    Config.prototype.li = async function(name, init){
+    Config.prototype.li = async function(name, init, write){
       var fpath, li, r, i$, ref$, len$, i;
+      write == null && (write = false);
       fpath = path.join(this.dir, name) + '.li.txt';
+      if (write) {
+        (await fs.outputFile(fpath, init.join('\n')));
+        return init;
+      }
       if (!(await fs.exists(fpath))) {
         if (init.length) {
           (await fs.outputFile(fpath, init.join('\n')));
