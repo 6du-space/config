@@ -6,12 +6,29 @@ require! {
   \fs-extra : fs
 }
 
+class File
+  (@path)->
+
+  set: (data)->
+    fs.outputFile(@path, data)
+
+  get: (encoding)!->
+    if fs.exists(@path)
+      return fs.readFile(@path, encoding)
+
+  utf8: ->
+    @get('utf8')
+
 class Config
   (env, homedir) ->
     @dir = process.env[env] or path.join(
       os.homedir!
       homedir
     )
+
+  file : (name)->
+    new File(path.join(@dir, name))
+
   line : (name, init, write=false)!~>
     fpath = path.join(@dir, name)+'.line.txt'
     if write

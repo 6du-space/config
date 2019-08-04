@@ -1,8 +1,27 @@
 (function(){
-  var path, os, fs, Config;
+  var path, os, fs, File, Config;
   path = require('path');
   os = require('os');
   fs = require('fs-extra');
+  File = (function(){
+    File.displayName = 'File';
+    var prototype = File.prototype, constructor = File;
+    function File(path){
+      this.path = path;
+    }
+    File.prototype.set = function(data){
+      return fs.outputFile(this.path, data);
+    };
+    File.prototype.get = function(encoding){
+      if (fs.exists(this.path)) {
+        return fs.readFile(this.path, encoding);
+      }
+    };
+    File.prototype.utf8 = function(){
+      return this.get('utf8');
+    };
+    return File;
+  }());
   Config = (function(){
     Config.displayName = 'Config';
     var prototype = Config.prototype, constructor = Config;
@@ -11,6 +30,9 @@
       this.line = bind$(this, 'line', prototype);
       this.dir = process.env[env] || path.join(os.homedir(), homedir);
     }
+    Config.prototype.file = function(name){
+      return new File(path.join(this.dir, name));
+    };
     Config.prototype.line = async function(name, init, write){
       var fpath, li, i$, ref$, len$, i;
       write == null && (write = false);
