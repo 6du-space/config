@@ -52,7 +52,7 @@ class Config
       await fs.outputFile(fpath, init.join('\n'))
       return init
     if not await fs.exists(fpath)
-      if init.length
+      if init and init.length
         await fs.outputFile(fpath, init.join('\n'))
       return init
     li = await fs.readFile(fpath, 'utf8')
