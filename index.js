@@ -68,7 +68,7 @@
         return init;
       }
       if (!(await fs.exists(fpath))) {
-        if (init.length) {
+        if (init && init.length) {
           (await fs.outputFile(fpath, init.join('\n')));
         }
         return init;
